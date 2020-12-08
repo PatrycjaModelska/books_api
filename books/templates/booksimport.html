@@ -1,0 +1,21 @@
+{% extends "index.html" %}
+
+{% block title %}
+	<div class=row>
+		<div class="container">
+			<h3>Download books from:</h3>
+		</div>
+	</div>
+{% endblock %}
+	
+{% block content %}
+	<div class=row>
+		<div class="container p-3 border">
+			<p>https://www.googleapis.com/books/v1/volumes?q=...'</p>
+			<form method="POST"> {% csrf_token %}
+				<input  type="text" value="war" name="q">
+			    <input class = "btn btn-primary" type="submit" value="Download">
+			</form>
+		</div>
+	</div>
+{% endblock %}

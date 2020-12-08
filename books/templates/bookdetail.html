@@ -1,0 +1,62 @@
+{% extends "index.html" %}
+
+{% block title %}
+	<div class=row>
+		<div class="container">
+			<h3>More information about book:</h3>
+		</div>
+	</div>
+{% endblock %}
+	
+{% block content %}
+    <div class="row">
+    	<div class="container p-3 border">
+            <ul class="list-unstyled">
+               <li><h4 class="font-italic">"{{book.title}}"</h4></li>
+               <li>Detaile:
+                    <ul>
+                        <li>Authors: 
+                            {%for author in book.authors.all%}
+                                {% if forloop.last %}
+                                    {{author}}
+                                {%else%}
+                                    <br>{{author}}<br>
+                                {%endif%}
+                            {%endfor%}
+                        </li>
+
+                        <li>Published date: {{book.published_date}}</li>
+
+                        <li>Categories: 
+                                {% for category in book.categories.all %} 
+                                    {% if forloop.last %}
+                                        {{category}}
+                                    {%else%}
+                                        <br>{{category}}<br>
+                                    {%endif%}
+                                {% endfor %}
+                        </li>
+
+                        <li>Average rating: {% if book.average_rating is not None %}
+                                                {{book.average_rating}}
+                                            {%else%}
+                                                no ratings
+                                            {% endif %}
+                        </li>
+
+                        <li>Ratings count: {% if book.ratings_count is not None %}
+                                                {{book.ratings_count}}
+                                            {%else%}
+                                                no ratings
+                                            {% endif %}
+                        </li>
+                    </ul>
+               </li>
+               <li>{{book.thumbnail}}</li>
+            </ul>
+
+
+        <a class="btn btn-primary" href="{% url 'bookslist' %}">Back</a>
+        </div>
+    </div>
+{% endblock %}

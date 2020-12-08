@@ -1,0 +1,58 @@
+{% extends "index.html" %}
+
+{% block title %}
+	<div class=row>
+		<div class="container">
+			<h3>List of books</h3>
+		</div>
+	</div>
+{% endblock %}
+	
+{% block content %}
+
+    <div class=row>
+        <div class="container  p-3 border">
+            <form method='GET'>
+                {{ filter.form.as_p }}
+                <button type="submit" class="btn btn-primary">Search</button>
+            </form>
+        </div>
+	</div>
+
+
+
+	<div class="row">
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">title</th>
+                    <th scope="col">authors</th>
+                    <th scope="col">published date <a href="{% url 'bookslist' %}?published_date={{published_date}}&authors={{authors}}&sort=-published_date"><i class="fas fa-angle-down"></i></a>
+                    <a href="{% url 'bookslist' %}?published_date={{published_date}}&authors={{authors}}&sort=published_date">
+                    <i class="fas fa-angle-up"></i></a>
+                    </th>
+                    <th scope="col">more information</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for book in filter.qs %}
+
+                    <tr>
+                        <td>{{book.title}}</td>
+                        <td>{% for author in book.authors.all %} 
+                        {{ author }}<br>
+                    {% endfor %}</td>
+                        <td>{{book.published_date}}</td>
+                        <td>
+                            <a href="{% url 'bookdetailview' pk=book.id %}">Click here</a>
+                        </td>                      
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+
+
+{% endblock %}
